@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WASL | تك اوت</title>
+<style>
+:root{--bg:#0d1017;--panel:#151a24;--panel2:#1c2330;--line:#2b3445;--text:#f4f7fb;--muted:#a4afc0;--accent:#8b5cf6;--accent2:#6d45d9;--green:#35d39a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#20213d 0,#0d1017 45%);font-family:Tahoma,Arial,sans-serif;color:var(--text);min-height:100vh}
+button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:11px 15px;color:white;background:var(--accent);font-weight:bold}button:hover{filter:brightness(1.1)}button.secondary{background:var(--panel2);border:1px solid var(--line)}button.danger{background:#a43d50}
+input,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#0f141d;color:white;outline:none}input:focus,textarea:focus{border-color:var(--accent)}.muted{color:var(--muted)}.hidden{display:none!important}
+.top{position:sticky;top:0;z-index:4;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px max(18px,calc((100% - 1180px)/2));background:#0d1017ed;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.brand{font-size:25px;font-weight:900;letter-spacing:1px}.brand span{color:#a78bfa}.topright{display:flex;gap:9px;align-items:center}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#8b5cf6,#ec4899);font-weight:bold;flex-shrink:0}
+.wrap{max-width:1180px;margin:25px auto;padding:0 16px;display:grid;grid-template-columns:220px minmax(0,1fr) 260px;gap:18px}
+.panel{background:#151a24eF;border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 12px 40px #0002}.side{align-self:start;position:sticky;top:85px}.navbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:right;margin:5px 0;background:transparent;color:var(--muted)}.navbtn.active,.navbtn:hover{background:var(--panel2);color:white}.navbtn b{font-size:18px;width:25px;text-align:center}.main{min-width:0;display:grid;gap:16px;align-content:start}
+.stories{display:flex;gap:12px;overflow:auto;padding-bottom:5px}.story{min-width:68px;text-align:center;font-size:12px;color:var(--muted)}.storyring{width:60px;height:60px;border-radius:50%;padding:3px;margin:0 auto 7px;background:linear-gradient(135deg,#f59e0b,#ec4899,#8b5cf6)}.storyring div{height:100%;border-radius:50%;background:var(--panel2);border:2px solid #151a24;display:grid;place-items:center;font-size:20px;color:white}
+.compose{display:flex;gap:11px;align-items:flex-start}.compose textarea{resize:vertical;min-height:76px}.composeinner{flex:1;display:grid;gap:10px}.post{display:grid;gap:13px}.posthead{display:flex;align-items:center;gap:10px}.posthead .meta{flex:1}.posttext{white-space:pre-wrap;line-height:1.8}.postimage{width:100%;max-height:420px;object-fit:cover;border-radius:14px;background:var(--panel2)}.postactions{display:flex;gap:8px;flex-wrap:wrap}.postactions button{background:transparent;color:var(--muted);padding:7px 10px}.postactions button:hover{background:var(--panel2);color:white}.commentbox{display:flex;gap:8px}.commentbox input{flex:1}.suggestion{display:flex;align-items:center;gap:9px;margin:13px 0}.suggestion .info{flex:1;min-width:0}.suggestion button{padding:8px 10px;font-size:12px}.sectiontitle{font-size:16px;margin:0 0 12px}.stats{display:flex;justify-content:space-around;text-align:center;margin:14px 0}.stat strong{display:block;font-size:19px}.stat small{color:var(--muted)}
+.authscreen{min-height:100vh;display:grid;place-items:center;padding:20px}.authcard{width:min(430px,100%);display:grid;gap:14px}.authcard h1{margin:0;font-size:34px}.authcard p{line-height:1.7}.authfields{display:grid;gap:10px}.authnote{font-size:12px;line-height:1.7;color:var(--muted)}
+.chatlayout{display:grid;grid-template-columns:220px 1fr;gap:12px;min-height:450px}.chatlist{display:grid;align-content:start;gap:8px}.chatperson{display:flex;align-items:center;gap:9px;padding:10px;background:var(--panel2);border-radius:12px;color:white;text-align:right}.chatbody{display:flex;flex-direction:column;min-height:420px}.messages{flex:1;display:flex;flex-direction:column;gap:9px;padding:10px 0;max-height:400px;overflow:auto}.bubble{padding:10px 13px;border-radius:14px;max-width:82%;background:var(--panel2);align-self:flex-start;overflow-wrap:anywhere}.bubble.mine{align-self:flex-end;background:#5b3bb5}.sendrow{display:flex;gap:8px}.sendrow input{flex:1}.profilehead{display:flex;gap:14px;align-items:center}.profilehead .avatar{width:76px;height:76px;font-size:24px}.profilegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.profilegrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px}
+.empty{text-align:center;padding:28px;color:var(--muted)}.toast{position:fixed;bottom:20px;left:20px;background:#222a39;border:1px solid var(--line);padding:12px 18px;border-radius:12px;z-index:10}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;max-width:700px}.side,.rightside{position:static}.side{order:2}.rightside{order:3}.main{order:1}.side nav{display:grid;grid-template-columns:repeat(3,1fr)}.navbtn{justify-content:center}.rightside{display:none}}
+@media(max-width:560px){.top{padding:12px}.brand{font-size:21px}.topright .welcome{display:none}.wrap{margin:14px auto;padding:0 10px}.panel{padding:13px}.chatlayout{grid-template-columns:1fr}.chatlist{display:flex;overflow:auto}.chatperson{min-width:max-content}.side nav{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<section id="auth" class="authscreen">
+  <div class="panel authcard">
+    <div class="brand">WASL<span>.</span></div>
+    <h1 id="authTitle">حيّاك في تك اوت  👋</h1>
+    <p class="muted">مكانك للتواصل ومشاركة لحظاتك.</p>
+    <div class="authfields" id="signupFields">
+      <input id="displayName" placeholder="اسم العرض" maxlength="35">
+    </div>
+    <div class="authfields">
+      <input id="username" placeholder="اسم المستخدم (5 حروف إنجليزية)" autocomplete="username" minlength="5" maxlength="5">
+      <input id="password" type="password" placeholder="كلمة المرور" autocomplete="current-password">
+    </div>
+    <button id="authSubmit" onclick="authenticate()">إنشاء حساب</button>
+    <button class="secondary" id="toggleAuth" onclick="toggleAuth()">عندي حساب — تسجيل الدخول</button>
+    <div class="authnote"فقط. لا تستخدم كلمة مرور حقيقيةdiv>
+  </div>
+</section>
+<div id="app" class="hidden">
+<header class="top">
+  <div class="brand">WASL<span>.</span></div>
+  <div class="topright"><span class="welcome muted" id="welcome"></span><div class="avatar" id="topAvatar">و</div><button class="secondary" onclick="logout()">خروج</button></div>
+</header>
+<div class="wrap">
+  <aside class="panel side">
+    <div class="profilehead"><div class="avatar" id="sideAvatar">و</div><div><b id="sideName">حسابي</b><div class="muted" id="sideUser">@user</div></div></div>
+    <div class="stats"><div class="stat"><strong id="postCount">0</strong><small>منشورات</small></div><div class="stat"><strong id="friendCount">0</strong><small>متابَعون</small></div></div>
+    <nav>
+      <button class="navbtn active" data-page="feed" onclick="showPage('feed',this)"><b>⌂</b> الرئيسية</button>
+      <button class="navbtn" data-page="chat" onclick="showPage('chat',this)"><b>✉</b> الرسائل</button>
+      <button class="navbtn" data-page="discover" onclick="showPage('discover',this)"><b>⌕</b> اكتشف</button>
+      <button class="navbtn" data-page="profile" onclick="showPage('profile',this)"><b>◉</b> ملفي</button>
+      <button class="navbtn" onclick="editProfile()"><b>⚙</b> تعديل الحساب</button>
+    </nav>
+    <p class="authnote">شارك باحترام، ولا تنشر بياناتك الخاصة.</p>
+  </aside>
+  <main class="main">
+    <section id="feedPage" class="main">
+      <div class="panel"><h3 class="sectiontitle">اللحظات</h3><div id="stories" class="stories"></div><div class="authnote">القصص هنا أمثلة تجريبية للتصميم.</div></div>
+      <div class="panel">
+        <h3 class="sectiontitle">شنو بخاطرك؟</h3>
+        <div class="compose"><div class="avatar" id="composeAvatar">و</div><div class="composeinner"><textarea id="postText" placeholder="اكتب منشورك..." maxlength="800"></textarea><div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><span class="muted" style="font-size:12px">حتى 800 حرف</span><button onclick="publishPost()">نشر المنشور</button></div></div></div>
+      </div>
+      <div id="feedPosts" class="main"></div>
+    </section>
+    <section id="chatPage" class="panel hidden">
+      <h2 class="sectiontitle">الرسائل</h2><p class="authnote">محادثات محلية تجريبية بين الحسابات المسجلة على نفس المتصفح فقط.</p>
+      <div class="chatlayout"><div id="chatList" class="chatlist"></div><div class="chatbody"><b id="chatTitle">اختر حسابًا للمحادثة</b><div id="messages" class="messages"><div class="empty">اختر شخصًا من القائمة</div></div><form class="sendrow" onsubmit="sendMessage(event)"><input id="messageInput" placeholder="اكتب رسالة..." maxlength="500"><button>إرسال</button></form></div></div>
+    </section>
+    <section id="discoverPage" class="panel hidden"><h2 class="sectiontitle">اكتشف الحسابات</h2><input id="searchUsers" placeholder="ابحث عن اسم أو مستخدم..." oninput="renderDiscover()"><div id="discoverUsers"></div></section>
+    <section id="profilePage" class="panel hidden"><div class="profilehead"><div class="avatar" id="profileAvatar">و</div><div><h2 id="profileName" style="margin:0 0 5px">حسابي</h2><div id="profileHandle" class="muted">@user</div><p id="profileBio" class="muted"></p></div></div><hr style="border-color:var(--line);margin:20px 0"><h3 class="sectiontitle">منشوراتي</h3><div id="profilePosts" class="main"></div></section>
+  </main>
+  <aside class="panel rightside"><h3 class="sectiontitle">حسابات مقترحة</h3><div id="suggestions"></div><hr style="border-color:var(--line);margin:18px 0"><h3 class="sectiontitle">عن وصل</h3><p class="authnote">واجهة أولية لشبكة اجتماعية: منشورات، متابعة، رسائل وملف شخصي. تحتاج خادمًا وقاعدة بيانات لإطلاقها للناس.</p></aside>
+</div>
+</div>
+<div id="toast" class="toast hidden"></div>
+<script>
+const DB='wasl_demo_v1';
+let data=JSON.parse(localStorage.getItem(DB)||'{"users":[],"posts":[],"messages":{},"follows":{}}');
+let current=null, authMode='signup', chatWith=null;
+function save(){localStorage.setItem(DB,JSON.stringify(data))}
+function safe(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.remove('hidden');setTimeout(()=>el.classList.add('hidden'),2300)}
+function toggleAuth(){authMode=authMode==='signup'?'login':'signup';document.getElementById('authTitle').textContent=authMode==='signup'?'حيّاك في وصل 👋':'يا هلا بعودتك';document.getElementById('authSubmit').textContent=authMode==='signup'?'إنشاء حساب':'تسجيل الدخول';document.getElementById('toggleAuth').textContent=authMode==='signup'?'عندي حساب — تسجيل الدخول':'حساب جديد — إنشاء حساب';document.getElementById('signupFields').classList.toggle('hidden',authMode==='login')}
+function authenticate(){
+ const username=document.getElementById('username').value.trim().toLowerCase().replace(/\s+/g,'');
+ const password=document.getElementById('password').value;
+ const name=document.getElementById('displayName').value.trim();
+ if(!/^[a-zA-Z]{5}$/.test(username)){toast('اسم المستخدم لازم يكون 5 حروف إنجليزية بالضبط');return}
+ if(password.length<4){toast('خل كلمة المرور 4 أحرف أو أكثر');return}
+ if(authMode==='signup'){
+  if(!name){toast('اكتب اسم العرض');return}
+  if(data.users.some(u=>u.username===username)){toast('اسم المستخدم مستخدم');return}
+  const u={username,password,name,bio:'هلا! هذا حسابي في وصل.',created:Date.now()};
+  data.users.push(u);current=username;save();enterApp();toast('تم إنشاء الحساب');
+ }else{
+  const u=data.users.find(u=>u.username===username&&u.password===password);
+  if(!u){toast('بيانات الدخول غير صحيحة');return}
+  current=username;enterApp()
+ }
+}
+function me(){return data.users.find(u=>u.username===current)}
+function enterApp(){document.getElementById('auth').classList.add('hidden');document.getElementById('app').classList.remove('hidden');refresh()}
+function logout(){current=null;chatWith=null;document.getElementById('app').classList.add('hidden');document.getElementById('auth').classList.remove('hidden');document.getElementById('password').value=''}
+function initials(u){return (u.name||u.username||'W').slice(0,1).toUpperCase()}
+function avatarMarkup(u){return `<div class="avatar">${safe(initials(u))}</div>`}
+function refresh(){
+ const u=me();if(!u)return;
+ ['topAvatar','sideAvatar','composeAvatar','profileAvatar'].forEach(id=>document.getElementById(id).textContent=initials(u));
+ document.getElementById('welcome').textContent='هلا، '+u.name;
+ document.getElementById('sideName').textContent=u.name;document.getElementById('sideUser').textContent='@'+u.username;
+ document.getElementById('profileName').textContent=u.name;document.getElementById('profileHandle').textContent='@'+u.username;document.getElementById('profileBio').textContent=u.bio||'';
+ const mine=data.posts.filter(p=>p.user===current);document.getElementById('postCount').textContent=mine.length;
+ document.getElementById('friendCount').textContent=(data.follows[current]||[]).length;
+ renderStories();renderFeed();renderDiscover();renderSuggestions();renderProfile();renderChats()
+}
+function showPage(page,btn){['feed','chat','discover','profile'].forEach(p=>document.getElementById(p+'Page').classList.toggle('hidden',p!==page));document.querySelectorAll('.navbtn[data-page]').forEach(b=>b.classList.toggle('active',b===btn));if(page==='chat')renderChats()}
+function renderStories(){const users=[me(),...data.users.filter(u=>u.username!==current)].slice(0,12);document.getElementById('stories').innerHTML=users.map((u,i)=>`<div class="story"><div class="storyring"><div>${safe(initials(u))}</div></div>${safe(i===0?'قصتك':u.name)}</div>`).join('')}
+function publishPost(){const t=document.getElementById('postText').value.trim();if(!t){toast('اكتب شي قبل النشر');return}data.posts.unshift({id:Date.now()+Math.random(),user:current,text:t,time:Date.now(),likes:[],comments:[]});document.getElementById('postText').value='';save();refresh();toast('تم نشر المنشور')}
+function postCard(p){const u=data.users.find(x=>x.username===p.user)||{username:p.user,name:p.user};const liked=p.likes.includes(current);return `<article class="panel post"><div class="posthead">${avatarMarkup(u)}<div class="meta"><b>${safe(u.name)}</b><div class="muted" style="font-size:12px">@${safe(u.username)} · ${new Date(p.time).toLocaleString('ar')}</div></div>${p.user===current?`<button class="secondary" onclick="deletePost('${p.id}')">حذف</button>`:''}</div><div class="posttext">${safe(p.text)}</div><div class="postactions"><button onclick="likePost('${p.id}')">${liked?'♥':'♡'} ${p.likes.length} إعجاب</button><button onclick="document.getElementById('comment-${p.id}').focus()">💬 ${p.comments.length} تعليق</button></div><div>${p.comments.slice(-3).map(c=>`<p class="authnote"><b>${safe(c.name)}:</b> ${safe(c.text)}</p>`).join('')}</div><form class="commentbox" onsubmit="commentPost(event,'${p.id}')"><input id="comment-${p.id}" placeholder="اكتب تعليقًا..." maxlength="250"><button class="secondary">تعليق</button></form></article>`}
+function renderFeed(){const posts=data.posts;document.getElementById('feedPosts').innerHTML=posts.length?posts.map(postCard).join(''):'<div class="panel empty">ماكو منشورات للحين. كن أول واحد ينشر!</div>'}
+function likePost(id){const p=data.posts.find(x=>String(x.id)===id);if(!p)return;const i=p.likes.indexOf(current);i<0?p.likes.push(current):p.likes.splice(i,1);save();renderFeed();renderProfile()}
+function commentPost(e,id){e.preventDefault();const p=data.posts.find(x=>String(x.id)===id);const input=document.getElementById('comment-'+id),t=input.value.trim();if(!t)return;p.comments.push({user:current,name:me().name,text:t});save();renderFeed();renderProfile()}
+function deletePost(id){if(!confirm('تحذف المنشور؟'))return;data.posts=data.posts.filter(p=>String(p.id)!==id);save();refresh()}
+function renderProfile(){const posts=data.posts.filter(p=>p.user===current);document.getElementById('profilePosts').innerHTML=posts.length?posts.map(postCard).join(''):'<div class="empty">ما نشرت أي شي للحين.</div>'}
+function isFollowing(username){return (data.follows[current]||[]).includes(username)}
+function follow(username){if(username===current)return;data.follows[current]??=[];const arr=data.follows[current],i=arr.indexOf(username);i<0?arr.push(username):arr.splice(i,1);save();refresh()}
+function userRow(u){return `<div class="suggestion">${avatarMarkup(u)}<div class="info"><b>${safe(u.name)}</b><div class="muted" style="font-size:12px">@${safe(u.username)}</div></div><button class="secondary" onclick="follow('${safe(u.username)}')">${isFollowing(u.username)?'إلغاء':'متابعة'}</button><button class="secondary" onclick="openChat('${safe(u.username)}')">رسالة</button></div>`}
+function renderDiscover(){const q=(document.getElementById('searchUsers')?.value||'').toLowerCase();const users=data.users.filter(u=>u.username!==current&&(u.name.toLowerCase().includes(q)||u.username.includes(q)));document.getElementById('discoverUsers').innerHTML=users.length?users.map(userRow).join(''):'<div class="empty">ما لقينا حسابات. جرّب البحث بكلمة ثانية.</div>'}
+function renderSuggestions(){const users=data.users.filter(u=>u.username!==current&&!isFollowing(u.username)).slice(0,5);document.getElementById('suggestions').innerHTML=users.length?users.map(userRow).join(''):'<p class="authnote">ما عندنا اقتراحات حاليًا. جرّب اكتشف.</p>'}
+function editProfile(){const u=me();const n=prompt('اسم العرض:',u.name);if(n===null)return;if(!n.trim()){toast('الاسم ما يصير فاضي');return}const b=prompt('نبذة عنك:',u.bio||'');u.name=n.trim().slice(0,35);if(b!==null)u.bio=b.slice(0,160);save();refresh();toast('تم تحديث الحساب')}
+function renderChats(){const others=data.users.filter(u=>u.username!==current);document.getElementById('chatList').innerHTML=others.length?others.map(u=>`<button class="chatperson" onclick="openChat('${safe(u.username)}')">${avatarMarkup(u)} ${safe(u.name)}</button>`).join(''):'<div class="empty">أنشئ حسابًا ثانيًا على نفس المتصفح للتجربة.</div>';if(chatWith)drawMessages()}
+function chatKey(a,b){return [a,b].sort().join('|')}
+function openChat(username){chatWith=username;showPage('chat',document.querySelector('[data-page="chat"]'));const u=data.users.find(x=>x.username===username);document.getElementById('chatTitle').textContent=u?u.name:'محادثة';drawMessages()}
+function drawMessages(){if(!chatWith)return;const key=chatKey(current,chatWith),msgs=data.messages[key]||[];document.getElementById('messages').innerHTML=msgs.length?msgs.map(m=>`<div class="bubble ${m.from===current?'mine':''}">${safe(m.text)}<div style="font-size:10px;opacity:.7;margin-top:5px">${new Date(m.time).toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'})}</div></div>`).join(''):'<div class="empty">ابدأ المحادثة برسالة لطيفة 👋</div>';document.getElementById('messages').scrollTop=999999}
+function sendMessage(e){e.preventDefault();const input=document.getElementById('messageInput'),t=input.value.trim();if(!chatWith||!t)return;const key=chatKey(current,chatWith);data.messages[key]??=[];data.messages[key].push({from:current,to:chatWith,text:t,time:Date.now()});input.value='';save();drawMessages()}
+</script>
+</body>
+</html>
